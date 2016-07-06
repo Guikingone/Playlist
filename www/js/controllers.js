@@ -1,22 +1,26 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal) {
+.controller('AppCtrl', function($scope, $ionicModal, $state) {
 
-  $scope.loginData = {};
+    $scope.loginData = {};
 
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+    $ionicModal.fromTemplateUrl('templates/login.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
 
-  $scope.closeLogin = function() { $scope.modal.hide(); };
+    $scope.closeLogin = function() { $scope.modal.hide(); };
 
-  $scope.login = function() { $scope.modal.show(); };
+    $scope.login = function() { $scope.modal.show(); };
 
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-      console.log('Doing login', $scope.loginData);
+    $scope.doLogin = function(form) {
+        if(form.valid) {
+            console.log('Sign-in', $scope.loginData);
+            $state.go('app');
+        }
+    console.log('Doing login', $scope.loginData);
+    $scope.error = $scope.validateForm($scope.loginData);
   };
 })
 
@@ -32,5 +36,5 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-
+  
 });
